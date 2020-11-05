@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "866120002483",
+    "firebase_url": "https://coffecrew-3f9f9.firebaseio.com",
+    "project_id": "coffecrew-3f9f9",
+    "storage_bucket": "coffecrew-3f9f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866120002483:android:43b481700e41c059a679c6",
+        "android_client_info": {
+          "package_name": "com.nihad.coffe_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866120002483-9ctstb3p25mnc6a07e8hrdbu9hjbdqod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtCtZELAweIDneMsaK6HKOD0iJ3qRKNPs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866120002483-9ctstb3p25mnc6a07e8hrdbu9hjbdqod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
