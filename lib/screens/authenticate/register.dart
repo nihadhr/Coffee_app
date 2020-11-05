@@ -1,4 +1,6 @@
 import 'package:coffe_app/services/auth.dart';
+import 'package:coffe_app/shared/const.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -40,6 +42,8 @@ class _RegisterState extends State<Register> {
 
             children: <Widget>[
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Email'),
+
                 validator: (val)=>val.isEmpty?'Enter an email':null ,
                 onChanged:(value){ setState(() {
                   email=value;
@@ -48,6 +52,7 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Password'),
                   onChanged:(value){ setState(() {
                     password=value;
                   }); },
