@@ -1,3 +1,4 @@
+import 'package:coffe_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:coffe_app/models/user.dart';
 class AuthService{
@@ -11,6 +12,7 @@ class AuthService{
   Stream<User>get user{
     return _auth.onAuthStateChanged.map((FirebaseUser user) => (_returnUser(user)));
   }
+
   //sign in anon
   Future signInAnon() async{
     try{
@@ -28,6 +30,7 @@ class AuthService{
     try{
       AuthResult result= await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user=result.user;
+      await DatabaseService(uid: user.uid).updateUserData('0', 'My new nickname', 100);
       return _returnUser(user);
     }
     catch(e){
@@ -41,6 +44,7 @@ class AuthService{
     try{
       AuthResult result= await _auth.signInWithEmailAndPassword(email: email, password: password);
       FirebaseUser user=result.user;
+      print(user.uid);
       return _returnUser(user);
     }
     catch(e){

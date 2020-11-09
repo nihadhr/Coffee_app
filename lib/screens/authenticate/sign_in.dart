@@ -1,6 +1,7 @@
 import 'package:coffe_app/models/user.dart';
 import 'package:coffe_app/services/auth.dart';
 import 'package:coffe_app/shared/const.dart';
+import 'package:coffe_app/shared/loading.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -16,9 +17,11 @@ class _SignInState extends State<SignIn> {
   String email='';
   String password='';
   String error='';
+  bool loading=false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading?Loading(): Scaffold(
       backgroundColor: Colors.brown[200],
     appBar: AppBar(
       backgroundColor: Colors.brown[400],
@@ -59,8 +62,12 @@ class _SignInState extends State<SignIn> {
               color: Colors.brown[400],
                 child: Text('Sign in',style: TextStyle(color: Colors.white)),
               onPressed: ()async{
+                  setState(() {
+                    loading=true;
+                  });
                   dynamic result=await _authService.signInWithEmailPassword(email, password);
                   setState(() {
+                    loading=false;
                     error='Username or password wrong';
                   });
               },

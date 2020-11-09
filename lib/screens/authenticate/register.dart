@@ -1,5 +1,6 @@
 import 'package:coffe_app/services/auth.dart';
 import 'package:coffe_app/shared/const.dart';
+import 'package:coffe_app/shared/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,11 +16,12 @@ class _RegisterState extends State<Register> {
   String email='';
   String password='';
   String error='';
+  bool loading=false;
   final _formKey=GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading? Loading(): Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -65,9 +67,16 @@ class _RegisterState extends State<Register> {
                 child: Text('Register',style: TextStyle(color: Colors.white)),
                 onPressed: ()async{
                     if(_formKey.currentState.validate()){
+                      setState(() {
+                        loading=true;
+                      });
                       dynamic res=await _authService.registerWithEmailPassword(email, password);
-                      if(res ==null){
-                          error='User can not be created';
+                      if(res == null){
+                          setState(() {
+                            loading=false;
+                            error='User can not be created';
+                          });
+
                       }
                     }
                 },
