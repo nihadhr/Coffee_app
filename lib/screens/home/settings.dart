@@ -1,6 +1,10 @@
+import 'package:coffe_app/models/brew.dart';
+import 'package:coffe_app/models/user.dart';
 import 'package:coffe_app/services/database.dart';
 import 'package:coffe_app/shared/const.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -9,15 +13,16 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   final _formKey=new GlobalKey<FormState>();
+
   final List<String>sugars=['0','1','2','3','4'];
-  DatabaseService _contextdb=new DatabaseService();
   String _name;
   String _sugars;
-  int _strength;
-
+  String error='';
+  int _strength;  //uzeti iz baze current vrijednosti
 
   @override
   Widget build(BuildContext context) {
+    final user=Provider.of<User>(context);
     return Form(
       key: _formKey,
       child:Column(
@@ -25,6 +30,7 @@ class _SettingsState extends State<Settings> {
         Text('Update preferences',style: TextStyle(fontSize: 16,letterSpacing: 2.2),),
         SizedBox(height: 20),
           TextFormField(
+
             decoration: textInputDecoration.copyWith(hintText: 'Name'),
             validator: (val)=>val.isEmpty? 'Enter a name':null,
             onChanged: (val)=> setState(()=>_name=val)
@@ -41,13 +47,35 @@ class _SettingsState extends State<Settings> {
            });},
           ),
           SizedBox(height: 20),
-          //dropdown
+          //slider
+          Slider(
+            label: 'Strength',
+
+            activeColor: Colors.brown[_strength??100], inactiveColor: Colors.brown[_strength??100],
+              min: 100.0,max: 900.0,divisions:8, value: (_strength??100).toDouble(),
+            onChanged :(val) {setState(() {
+              _strength=val.toInt();
+
+            });},
+          ),
           RaisedButton(
               child: Text('Update'),
               onPressed: ()async{
-                // _contextdb.updateUserData(_sugars, _name, _strength??100);
+                if(_formKey.currentState.validate()){
+                  new DatabaseService(uid:user.uid).update(_sugars, _name, _strength??100);
+                  error='';
+                }
+                else{
+                  setState(() {
+                    error='Some fields are required.';
+                  });
+                }
+
                 //update current user function to implement
           }),
+          SizedBox(height: 20,),
+          Text(error,style: TextStyle(color:Colors.red),),
+
 
       ],
       ),
