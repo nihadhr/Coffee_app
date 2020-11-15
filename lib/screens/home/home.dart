@@ -16,6 +16,7 @@ class Home extends StatelessWidget {
   @override
 
   Widget build(BuildContext context) {
+
     void _openBottomSheet(){
       showModalBottomSheet(context: context, builder: (context){
         return Container(padding: EdgeInsets.fromLTRB(20, 40, 20, 40),
