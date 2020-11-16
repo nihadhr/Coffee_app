@@ -15,13 +15,7 @@ class DatabaseService{
       'strength':strength
     });
   }
-  Future update(String sugars,String name, int strength) async{
-    return await collection.document(uid).setData({
-      'sugars':sugars,
-      'name':name,
-      'strength':strength
-    });
-  }
+
   List<Brew> _getBrewList(QuerySnapshot snapshot){
     return snapshot.documents.map((doc){
       return Brew(

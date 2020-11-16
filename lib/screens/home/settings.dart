@@ -76,11 +76,12 @@ class _SettingsState extends State<Settings> {
                     child: Text('Update'),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        new DatabaseService(uid: user.uid).update(
+                        new DatabaseService(uid: user.uid).updateUserData(
                             _sugars??user.sugars,_name??user.name,_strength?? user.strength ?? 100);
                         setState(() {
                           error = '';
                         });
+                        Navigator.pop(context);
                       }
                       else {
                         setState(() {
